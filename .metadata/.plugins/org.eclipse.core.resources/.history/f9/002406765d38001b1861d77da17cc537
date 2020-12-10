@@ -1,0 +1,25 @@
+<%@page import="board.model.QnADAO"%>
+<%@page import="board.model.QnA"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	/*넘겨받은 파라미터를 이용하여 원글 등록!!
+		또한 원글의 team 값을 곧바로 pk 값으로 update 
+	*/
+	
+	//파라미터 받기
+	request.setCharacterEncoding("utf-8");
+	String writer = request.getParameter("writer");
+	String title  = request.getParameter("title");
+	String content = request.getParameter("content");
+	
+	//VO 에 낱개로 된 파라미터 데이터 채워넣기
+	QnA qna = new QnA();
+	qna.setWriter(writer);
+	qna.settitle(title);
+	qna.setcont(content);
+	
+	QnADAO dao  = new QnADAO();
+	
+	
+	
+%>

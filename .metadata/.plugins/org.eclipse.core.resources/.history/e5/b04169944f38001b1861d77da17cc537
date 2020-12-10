@@ -1,0 +1,47 @@
+package board.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import db.DBManager;
+
+public class QnADAO {
+	DBManager dbManager = new DBManager();
+	
+	//insert
+	public int insert() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		return result;
+	}
+	
+	//´äº¯±Û
+	public int reply() {
+		int result = 0 ;
+		
+		return result;
+	}
+	
+	//selectAll
+	public List  selectALL() {
+		return null;
+	}
+	
+	//update
+	public int update() {
+		int result = 0 ;
+		
+		return result;
+	}
+	
+	//delete 
+	public int delete(){
+		int result = 0 ;
+		
+		
+		return result;
+	}
+}

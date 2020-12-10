@@ -1,0 +1,113 @@
+<%@page import="common.FileManager"%>
+<%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
+<%@page import="org.apache.commons.fileupload.FileItem"%>
+<%@page import="java.util.List"%>
+<%@page import="java.io.File"%>
+<%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
+<%@page import="board.model.ImageBoard"%>
+<%@page import="board.model.ImageBoardDAO"%>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page import="db.DBManager"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.ResultSet"%>
+
+<%@ include file="/inc/lib.jsp" %>
+<%! 
+String saveDir="C:/workspace/javaEE_workspace/BoardApp/WebContent/data";	
+int maxSize=3*1024*1024; //3M byte
+ImageBoardDAO dao = new ImageBoardDAO();
+String filename = "";
+%>
+<%
+	DiskFileItemFactory itemFactory=new DiskFileItemFactory();
+	itemFactory.setRepository(new File(saveDir));
+	itemFactory.setSizeThreshold(maxSize);
+	itemFactory.setDefaultCharset("utf-8");
+	
+	ServletFileUpload upload=new ServletFileUpload(itemFactory);
+
+	List<FileItem> items=upload.parseRequest(request);
+	
+	ImageBoardDAO boardDAO = new ImageBoardDAO();
+
+
+
+	ImageBoard board = new ImageBoard();
+	
+	for(FileItem item : items){
+		if(item.isFormField()){ //textfield 라면...db에 넣어야지
+			//vo 에 텍스트필드들의 값을 담자!!
+			if(item.getFieldName().equals("board_id")){
+				board.setBoard_id(Integer.parseInt(item.getString()));
+			}
+			else if(item.getFieldName().equals("author")){//필드명이 author 라면...
+				board.setAuthor(item.getString());
+			}else if(item.getFieldName().equals("title")){//필드명이 title 라면...
+				board.setTitle(item.getString());
+			}else if(item.getFieldName().equals("content")){//필드명이 content 라면...
+				board.setContent(item.getString());
+			}else if(item.getFieldName().equals("filename")){
+				filename = item.getString();
+				board.setFilename(filename);
+			}
+
+		}else{ // textfield가 아니라면..업로드 처리
+			
+			if(item.getName().length()>0){ //파일을 교체한다면, 즉 업로드 하길 원한다면...
+				String newName=System.currentTimeMillis()+"."+FileManager.getExtend(item.getName());
+				String destFile = saveDir+"/"+newName;
+				File file = new File(destFile);
+				item.write(file);//물리적 저장 시점!!!	
+				filename=newName;
+				//board.setFilename(newName);//vo 에 파일명 값을 담자!!			sdfsadf
+			}
+		}
+	}
+	
+	board.setFilename(filename);
+
+	//등록
+	int result = boardDAO.update(board); //vo,dto 
+	if(result == 0){
+		out.print(getMsgBack("실패"));
+
+		}else{
+		out.print(getMsgURL("성공","/imageboard/list.jsp"));
+		}
+	
+%>
+
+<%
+
+
+
+	//select 
+/*	String sql="update notice set title = ?,author = ?,content= ? where notice_id = ?";
+	pstmt=con.prepareStatement(sql); //쿼리준비
+	pstmt.setString(1,title);
+	pstmt.setString(2,author);
+	pstmt.setString(3,content);
+	pstmt.setInt(4,notice_id);
+
+		int result = pstmt.executeUpdate();
+		if(result==0){
+		
+		out.print(getMsgBack("실패"));
+
+		}else{
+		out.print(getMsgURL("성공","/board/list.jsp"));
+		}
+	
+	db에 연동에 사용된 모든 객체 닫기 
+	if(pstmt!=null){
+		pstmt.close();
+	}
+	if(con!=null){
+		con.close();
+	}
+	*/
+
+
+	%>
+	

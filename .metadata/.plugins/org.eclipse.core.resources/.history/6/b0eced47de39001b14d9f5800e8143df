@@ -1,0 +1,9 @@
+package board.model;
+
+import java.util.List;
+
+public class CommentsDAO {
+
+	
+	
+}

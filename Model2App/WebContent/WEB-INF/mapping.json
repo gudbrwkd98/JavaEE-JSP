@@ -1,0 +1,33 @@
+{
+	"controller":{
+		"/test.do":"com.model2.test.TestController",
+		"/notice/list.do":"com.model2.notice.controller.ListController"
+		"/notice/regist.do":"com.model2.notice.controller.RegistController",
+		"/notice/detail.do":"com.model2.notice.controller.DetailController",
+		"/notice/edit.do":"com.model2.notice.controller.EditController"
+		"/notice/delete.do":"com.model2.notice.controller.DeleteController",
+		"/board/list.do":"com.model2.board.controller.ListController",
+		"/board/regist.do":"com.model2.board.controller.RegistController",
+		"/board/detail.do":"com.model2.board.controller.DetailController",
+		"/comment/regist.do":"com.model2.comment.controller.RegistController",
+		"/comment/list.do":"com.model2.comment.controller.ListController",
+		"/board/edit.do":"com.model2.board.controller.EditController"
+		
+		
+	},
+	
+	"view":{
+		"/view/test/result":"/test/result.jsp",
+		"/view/notice/list":"/notice/list.jsp",
+		"/view/notice/return":"/notice/list.do",
+		"/view/notice/detail" : "/notice/detail.jsp",
+		"/view/board/list":"/board/list.jsp",
+		"/view/board/regist":"/board/list.do",
+		"/view/board/detail":"/board/detail.jsp",
+		"/view/comment/list":"/board/comment_list.jsp",
+		"/view/comment/regist":"/board/comment_regist.jsp",
+		"/view/board/edit":"/board/edit.jsp",
+		"/view/board/return":"/board/list.do"
+		
+	}
+} 

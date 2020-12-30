@@ -1,0 +1,10 @@
+{
+	"controller" : {
+	"/notice/list.do":"common.web2.notice.controller.ListController"
+	},
+	
+	"view" : {
+	"/view/notice/list":"/notice/list.jsp"
+	}
+
+}

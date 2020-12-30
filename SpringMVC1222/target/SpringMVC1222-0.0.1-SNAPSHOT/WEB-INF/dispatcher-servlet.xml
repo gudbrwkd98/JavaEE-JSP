@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--  어떤 컨트롤러가 요청을 처리할지에 대한 정보를 작성하지 않아도 된다!!
+		가능한 이유? 개발자가 컨틀로러에 대한 정보를 아무것도 작성하지 않으면 
+		DefaultAnnotationHandlerMapping 객체가 적용됨..
+	 -->
+	 
+	 <!-- 뷰매핑 -->
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 	<property name="prefix" value="/"></property>
+	 	<property name="suffix" value=".jsp"></property>
+	 </bean>
+
+</beans>

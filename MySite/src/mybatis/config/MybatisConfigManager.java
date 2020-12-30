@@ -1,0 +1,50 @@
+package mybatis.config;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class MybatisConfigManager {
+	private static MybatisConfigManager instance;
+	
+	String resource = "mybatis/config/config.xml";
+	InputStream inputStream;
+	SqlSessionFactory sqlSessionFactory;
+	
+	private MybatisConfigManager() {
+
+		try {
+			inputStream  = Resources.getResourceAsStream(resource);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	//생성자를 막았기 때문에 오직 이 메서드에 의해서만 인스턴스를 얻어갈수 있도록 제한하자!!
+	public static MybatisConfigManager getInstance() {
+		if(instance==null) {
+			instance = new MybatisConfigManager();
+		}
+		return instance;
+	}
+	
+	//sqlsession을 반환하는 메서드
+	public SqlSession getSqlSession() {
+		SqlSession sqlSession = null;
+		sqlSession = sqlSessionFactory.openSession();
+		return sqlSession;
+	}
+	
+	//sqlsession을 닫는메서드
+	public void close(SqlSession sqlSession) {
+		sqlSession.close();
+	}
+}
